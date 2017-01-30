@@ -4,13 +4,13 @@ Para configurar los proveedores de inicio de sesión debemos ir a **Authenticati
 ![Auth](imgs/20170130-111437.png)
 
 Para **crear** un usuario con Email y contraeña usaremos la función correspondiente
-
-	firebase.auth().createUserWithEmailAndPassword(email, password);
-
+```javascript
+firebase.auth().createUserWithEmailAndPassword(email, password);
+```
 Análogamente, para **iniciar sesión** con usuario y contraseña usaremos la siguiente función
-
-	firebase.auth().signInWithEmailAndPassword(email, password);
-
+```javascript
+firebase.auth().signInWithEmailAndPassword(email, password);
+```
 Para **cerrar sesión**
 ```javascript
 firebase.auth().signOut().then(function() {
