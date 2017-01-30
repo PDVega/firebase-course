@@ -10,7 +10,7 @@ luego seleccionar **add firebase to your web app**
 
 **copiar** el texto que aparece en el recuadro y **pegar** el código dentro de nuestro proyecto
 
-~~~
+```javascript
 <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
 
 <script>
@@ -24,7 +24,7 @@ luego seleccionar **add firebase to your web app**
   };
   firebase.initializeApp(config);
 </script>
-~~~
+```
 
 
 ## [Anterior](index.md) - - [Siguiente](page2.md)
