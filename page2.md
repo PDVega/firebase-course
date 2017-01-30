@@ -1,111 +1,101 @@
 # ![Firebase logo](imgs/firebase.png) Firebase
-##Realtime Database
+##Authentication
+Para configurar los proveedores de inicio de sesión debemos ir a **Authentication** → **Sign-in method** y elegimos el proveedor que deseemos
+![Auth](imgs/20170130-111437.png)
 
-Primero, para modificar la base de datos debemos ir a **Database** → **Rules** y definir las siguientes reglas (solo para desarrollo)
+Para **crear** un usuario con Email y contraeña usaremos la función correspondiente
+
+	firebase.auth().createUserWithEmailAndPassword(email, password);
+
+Análogamente, para **iniciar sesión** con usuario y contraseña usaremos la siguiente función
+
+	firebase.auth().signInWithEmailAndPassword(email, password);
+
+Para **cerrar sesión**
 ~~~
-{
-  "rules": {
-    ".read": true,
-    ".write": true
+firebase.auth().signOut().then(function() {
+  // La sesión se cerró
+}, function(error) {
+  // Error
+});
+~~~
+
+Para acceder a los datos del usuario, podemos hacerlo de cualquiera de las siguientes maneras:
+
+Con un **observer**
+~~~
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // El usuario inició sesión 
+  } else {
+    // No hay usuario en la sesión actual
   }
-}
-~~~
-
-Para crear una **referencia** a la base de datos usamos
-
-	var dbRef = firebase.database().ref();
-	
-Crear un **hijo** en la referencia raíz llamado **object** es tan simple como
-
-	const dbStudent = dbRef.child('student');
-
-si usamos la función **set** para poner/reemplazar valores en la base de datos
-~~~
-dbStudent.set({
-	name: 'Juan',
-	lastname: 'Escutia',
-	age: 20
 });
 ~~~
 
-la base de datos quedaría así
+o con la **propiedad**
 ~~~
-{
-	student: {
-		age: 20,
-		lastname: 'Escutia',
-		name: 'Juan'
-	}
+var user = firebase.auth().currentUser;
+if (user) {
+  // Hay un usuario iniciado
+} else {
+  // No hay usuario en la sesión actual
 }
 ~~~
 
-La función **on** escucha los cambios en la referencia de la base de datos especificada, y se utiliza de la siguiente forma
+De cualquier forma, la manera de obtener los datos de ese usuario es accediendo a la propiedad correspondiente
+
 ~~~
-dbStudent.on('value', function(data) {
-	console.log( data.val() );
-}
-~~~
-	
-Cuando no necesitamos escuchar cambios del servidor utilizamos la función **once**
-~~~
-dbStudent.once('value', function(data) {
-	console.log( data.val() );
+var user = firebase.auth().currentUser;
+var name, email, photoUrl, uid, emailVerified;
+
+if (user != null) {
+  name = user.displayName;
+  email = user.email;
+  photoUrl = user.photoURL;
+  emailVerified = user.emailVerified;
+  uid = user.uid;
 }
 ~~~
 
-Cuando requerimos trabajar con listas de datos, es decir, eventos ocurriendo en los hijos de una referencia, en vez de usar **'value'**, usaremos alguno de los siguientes ejemplos dependiendo del caso de uso 
+Para actualizar los datos del usuario
 ~~~
-dbStudent.on('child_added' function(data){ 
-	//some code
+// Actualizar el perfil de usuario
+user.updateProfile({
+  displayName: "Vicente Suárez",
+  photoURL: "https://example.com/vicente-s-user/profile.jpg"
+});
+
+// Enviar un email para cambiar el email
+auth.sendPasswordResetEmail('example@mail.com');
+
+~~~
+
+Para cambiar ciertos atributos se necesita re-autenticarse por seguridad
+~~~
+var user = firebase.auth().currentUser;
+var credential;
+
+// Prompt the user to re-provide their sign-in credentials
+
+user.reauthenticate(credential).then(function() {
+  // Usuario re-autenticado
+  // Usar una de las funciones descritas en el siguiente bloque
+}, function(error) {
+  // Error
 });
 ~~~
+~~~
+// Actualizar el email
+user.updateEmail("user@example.com");
 
-| Evento 			| Caso de uso |
-| :-------------:		| :------ |
-| child_added		| Recupera una lista de ítems y escucha adiciones de ítems 	|
-| child_changed	| Escucha los cambios en los ítems en una lista 	|
-| child_removed	| Escucha los ítems removidos de una lista 		|
-| child_moved		| Escucha el orden en que los ítems de una lista cambian 	|
+// Verificar email
+user.sendEmailVerification();
 
-La función **push** nos genera una nueva referencia con un **key** aleatorio
-~~~
-dbStudents.push().set({
-	name: 'Agustín',
-	lastname: 'Melgar',
-	age: 18
-});
-~~~
-la base de datos quedaría así
-~~~
-{
-	students: {
-		-KbfWbtOjsptr7T8EqZ: {
-			name: 'Agustín',
-			lastname: 'Melgar',
-			age: 18
-		},
-		-KbfYAHIpXwhptbRGc1T: {...},
-		-KbfZD73W83pBDVTX4CZ: {...}
-	}
-}
-~~~
+// Cambiar contraseña
+user.updatePassword(newPassword);
 
-El parámetro **data** es el dato que está siendo escuchado en la referencia, éste incluye parámetros como **key** (la llave del dato) y funciones como **val**(el valor de ese dato)
+// Borrar un usuario activo
+user.delete();
 ~~~
-dbStudents.on('child_added', function(data) {
-	console.log( data.key ); // -KbfWbtOjsptr7T8EqZ
-	
-	console.log( data.val() );	/* {
-								 * 	name: 'Agustín',
-								 * 	lastname: 'Melgar',
-								 * 	age: 18
-								 * }
-								 * 
-								 */
-								 
-	console.log( data.val().name ); // Agustín
-}
-~~~
-
-
 ## [Anterior](page1.md) - - [Siguiente](page3.md)
