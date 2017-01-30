@@ -12,18 +12,18 @@ Análogamente, para **iniciar sesión** con usuario y contraseña usaremos la si
 	firebase.auth().signInWithEmailAndPassword(email, password);
 
 Para **cerrar sesión**
-~~~
+```javascript
 firebase.auth().signOut().then(function() {
   // La sesión se cerró
 }, function(error) {
   // Error
 });
-~~~
+```
 
 Para acceder a los datos del usuario, podemos hacerlo de cualquiera de las siguientes maneras:
 
 Con un **observer**
-~~~
+```javascript
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // El usuario inició sesión 
@@ -31,21 +31,21 @@ firebase.auth().onAuthStateChanged(function(user) {
     // No hay usuario en la sesión actual
   }
 });
-~~~
+```
 
 o con la **propiedad**
-~~~
+```javascript
 var user = firebase.auth().currentUser;
 if (user) {
   // Hay un usuario iniciado
 } else {
   // No hay usuario en la sesión actual
 }
-~~~
+```
 
 De cualquier forma, la manera de obtener los datos de ese usuario es accediendo a la propiedad correspondiente
 
-~~~
+```javascript
 var user = firebase.auth().currentUser;
 var name, email, photoUrl, uid, emailVerified;
 
@@ -56,10 +56,10 @@ if (user != null) {
   emailVerified = user.emailVerified;
   uid = user.uid;
 }
-~~~
+```
 
 Para actualizar los datos del usuario
-~~~
+```javascript
 // Actualizar el perfil de usuario
 user.updateProfile({
   displayName: "Vicente Suárez",
@@ -68,11 +68,10 @@ user.updateProfile({
 
 // Enviar un email para cambiar el email
 auth.sendPasswordResetEmail('example@mail.com');
-
-~~~
+```
 
 Para cambiar ciertos atributos se necesita re-autenticarse por seguridad
-~~~
+```javascript
 var user = firebase.auth().currentUser;
 var credential;
 
@@ -84,8 +83,9 @@ user.reauthenticate(credential).then(function() {
 }, function(error) {
   // Error
 });
-~~~
-~~~
+```
+
+```javascript
 // Actualizar el email
 user.updateEmail("user@example.com");
 
@@ -97,5 +97,5 @@ user.updatePassword(newPassword);
 
 // Borrar un usuario activo
 user.delete();
-~~~
+```
 ## [Anterior](page1.md) - - [Siguiente](page3.md)
