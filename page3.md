@@ -12,13 +12,13 @@ Primero, para modificar la base de datos debemos ir a **Database** → **Rules**
 ```
 
 Para crear una **referencia** a la base de datos usamos
-
-	var dbRef = firebase.database().ref();
-	
+```javascript
+var dbRef = firebase.database().ref();
+```
 Crear un **hijo** en la referencia raíz llamado **object** es tan simple como
-
-	const dbStudent = dbRef.child('student');
-
+```javascript
+const dbStudent = dbRef.child('student');
+```
 si usamos la función **set** para poner/reemplazar valores en la base de datos
 ```javascript
 dbStudent.set({
