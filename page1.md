@@ -27,4 +27,4 @@ luego seleccionar **add firebase to your web app**
 ```
 
 
-## [Anterior](index.md) - - [Siguiente](page2.md)
+## [Anterior](page0.md) - - [Siguiente](page2.md)

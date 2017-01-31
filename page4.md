@@ -1,23 +1,21 @@
 # ![Firebase logo](imgs/firebase.png) Firebase
-##Hosting
-Crear una **referencia** a la base de datos
+##Otras herramientas
+###Almacenamiento
+El almacenamiento deja subir y compartir contenido generado por el usuario como imágenes y video.
 
-	var dbRef = firebase.database().ref();
-	
-Función **on**
-	
-	//code
-	
-Función **once**
+###Mensajería en la nube
+Con Firebase Cloud Messaging puedes notificar a tus usuarios y puede ser usado para un servicio de mensajería instantanea
 
-	//code
-	
-Ejemplo descriptivo:
-~~~
-/* code 
- * TODO:
- * more code
- */
-~~~
+###Hosting
+Provee un hosting estático seguro y rápido.
 
-## [Anterior](page3.md) - - [Siguiente](page5.md)
+###Laboratorio de pruebas
+Permite probar tus aplicaciones móviles de Android y iOS desde la consola de Firebase
+
+###Analytics
+Servicio de medición para aplicaciones móviles
+
+###Reporte de crasheos
+Reporta los bugs en las aplicaciones móviles
+
+## [Anterior](page3.md) - - Siguiente
