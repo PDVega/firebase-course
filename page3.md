@@ -55,7 +55,7 @@ dbStudent.once('value', function(data) {
 
 Cuando requerimos trabajar con listas de datos, es decir, eventos ocurriendo en los hijos de una referencia, en vez de usar **'value'**, usaremos alguno de los siguientes ejemplos dependiendo del caso de uso
 ```javascript
-dbStudent.on('child_added' function(data){
+dbStudent.on('child_added', function(data){
 	//some code
 });
 ```
