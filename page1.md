@@ -21,8 +21,9 @@ luego seleccionar **add firebase to your web app**
     databaseURL: "https://awesomeproject.firebaseio.com",
     storageBucket: "awesomeproject.appspot.com",
     messagingSenderId: "XXXXXXXXX"
-  };
-  firebase.initializeApp(config);
+  }
+
+  firebase.initializeApp(config)
 </script>
 ```
 

@@ -5,37 +5,38 @@ Para configurar los proveedores de inicio de sesión debemos ir a **Authenticati
 
 Para **crear** un usuario con Email y contraeña usaremos la función correspondiente
 ```javascript
-firebase.auth().createUserWithEmailAndPassword(email, password);
+firebase.auth().createUserWithEmailAndPassword(email, password)
 ```
 Análogamente, para **iniciar sesión** con usuario y contraseña usaremos la siguiente función
 ```javascript
-firebase.auth().signInWithEmailAndPassword(email, password);
+firebase.auth().signInWithEmailAndPassword(email, password)
 ```
 Para **cerrar sesión**
 ```javascript
-firebase.auth().signOut().then(function() {
+firebase.auth().signOut().then(() => {
   // La sesión se cerró
-}, function(error) {
+}, error => {
   // Error
-});
+})
 ```
 
 Para acceder a los datos del usuario, podemos hacerlo de cualquiera de las siguientes maneras:
 
 Con un **observer**
 ```javascript
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(user => {
   if (user) {
     // El usuario inició sesión
   } else {
     // No hay usuario en la sesión actual
   }
-});
+})
 ```
 
 o con la **propiedad**
 ```javascript
-var user = firebase.auth().currentUser;
+var user = firebase.auth().currentUser
+
 if (user) {
   // Hay un usuario iniciado
 } else {
@@ -50,11 +51,11 @@ var user = firebase.auth().currentUser;
 var name, email, photoUrl, uid, emailVerified;
 
 if (user != null) {
-  name = user.displayName;
-  email = user.email;
-  photoUrl = user.photoURL;
-  emailVerified = user.emailVerified;
-  uid = user.uid;
+  name = user.displayName
+  email = user.email
+  photoUrl = user.photoURL
+  emailVerified = user.emailVerified
+  uid = user.uid
 }
 ```
 
@@ -62,40 +63,40 @@ Para actualizar los datos del usuario
 ```javascript
 // Actualizar el perfil de usuario
 user.updateProfile({
-  displayName: "Vicente Suárez",
-  photoURL: "https://example.com/vicente-s-user/profile.jpg"
-});
+  displayName: 'Vicente Suárez',
+  photoURL: 'https://example.com/vicente-s-user/profile.jpg'
+})
 
 // Enviar un email para cambiar el email
-auth.sendPasswordResetEmail('example@mail.com');
+auth.sendPasswordResetEmail('example@mail.com')
 ```
 
 Para cambiar ciertos atributos se necesita re-autenticarse por seguridad
 ```javascript
-var user = firebase.auth().currentUser;
-var credential;
+var user = firebase.auth().currentUser
+var credential
 
 // Prompt the user to re-provide their sign-in credentials
 
-user.reauthenticate(credential).then(function() {
+user.reauthenticate(credential).then(() => {
   // Usuario re-autenticado
   // Usar una de las funciones descritas en el siguiente bloque
-}, function(error) {
+}, error => {
   // Error
-});
+})
 ```
 
 ```javascript
 // Actualizar el email
-user.updateEmail("user@example.com");
+user.updateEmail('user@example.com')
 
 // Verificar email
-user.sendEmailVerification();
+user.sendEmailVerification()
 
 // Cambiar contraseña
-user.updatePassword(newPassword);
+user.updatePassword(newPassword)
 
 // Borrar un usuario activo
-user.delete();
+user.delete()
 ```
 ## [Anterior](page1.md) - - [Siguiente](page3.md)
